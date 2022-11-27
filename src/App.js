@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { createContext, useState } from "react";
+import "./App.css";
+import SearchAppBar from "./components/SearchAppBar";
+import Home from "./pages/Home";
+import Stack from "@mui/material/Stack";
+
+export const ThemeContext = createContext(null);
 
 function App() {
+  const [theme, setTheme] = useState("dark");
+  const toggleTheme = () => {
+    setTheme((curr) => (curr === "light" ? "dark" : "light"));
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <Stack className="App" id={theme} sx={{ minHeight: "100vh" }}>
+        <span className="switch">
+          <label> {theme === "light" ? "Light Mode" : "Dark Mode"}</label>
+          <label>
+            <input
+              type="checkbox"
+              onChange={toggleTheme}
+              checked={theme === "dark"}
+            />
+          </label>
+        </span>
+        <SearchAppBar />
+        <Home />
+      </Stack>
+    </ThemeContext.Provider>
   );
 }
 
