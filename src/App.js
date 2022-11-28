@@ -3,6 +3,7 @@ import "./App.css";
 import SearchAppBar from "./components/SearchAppBar";
 import Home from "./pages/Home";
 import Stack from "@mui/material/Stack";
+import Switch from "@mui/material/Switch";
 
 export const ThemeContext = createContext(null);
 
@@ -16,13 +17,11 @@ function App() {
       <Stack className="App" id={theme} sx={{ minHeight: "100vh" }}>
         <span className="switch">
           <label> {theme === "light" ? "Light Mode" : "Dark Mode"}</label>
-          <label>
-            <input
-              type="checkbox"
-              onChange={toggleTheme}
-              checked={theme === "dark"}
-            />
-          </label>
+          <Switch
+            type="checkbox"
+            onChange={toggleTheme}
+            checked={theme === "dark"}
+          />
         </span>
         <SearchAppBar />
         <Home />
