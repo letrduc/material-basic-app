@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
-import api from "../data/fetchData";
+import { getJobs } from "../data/fetchData";
 import CardList from "../components/CardList";
 import { useSearchParams } from "react-router-dom";
 import { Typography } from "@mui/material";
@@ -17,12 +17,13 @@ function Home() {
   const [jobs, setJobs] = useState([]);
   const [pageTotal, setPageTotal] = useState(0);
   const [page, setPage] = useState(1);
+  // eslint-disable-next-line no-unused-vars
   const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get("q");
 
   useEffect(() => {
     const fetch = async () => {
-      const data = await api.getJobs(page, q);
+      const data = await getJobs(page, q);
       setJobs(data.jobs);
       setPageTotal(data.pageTotal);
     };
